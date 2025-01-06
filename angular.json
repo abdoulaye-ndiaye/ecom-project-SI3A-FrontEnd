@@ -21,30 +21,20 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
               }
             ],
             "styles": [
-              "src/assets/css/bootstrap.min.css",
-              "src/assets/css/animate.css",
-              "src/assets/css/jquery-ui.min.css",
-              "src/assets/css/meanmenu.min.css",
-              "src/assets/css/owl.carousel.css",
-              "src/assets/css/slick.css",
               "src/assets/css/style.css",
-              "src/assets/css/responsive.css"
+              "src/assets/css/style.min.css"
             ],
-            "scripts": [
-              "src/assets/js/vendor/modernizr-2.8.3.min.js",
-              "src/assets/js/vendor/jquery-1.12.0.min.js",
-              "src/assets/js/bootstrap.min.js",
-              "src/assets/js/owl.carousel.min.js",
-              "src/assets/js/jquery.meanmenu.js",
-              "src/assets/js/jquery-ui.min.js",
-              "src/assets/js/wow.min.js",
-              "src/assets/js/plugins.js",
-              "src/assets/js/main.js"
-            ]
+            "scripts": ["src/assets/js/main.js"]
           },
           "configurations": {
             "production": {
@@ -96,7 +86,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"],
+            "styles": ["./src/assets/css/style.css"],
             "scripts": []
           }
         }
