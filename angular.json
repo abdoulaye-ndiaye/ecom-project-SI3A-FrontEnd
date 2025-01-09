@@ -32,9 +32,12 @@
             ],
             "styles": [
               "src/assets/css/style.css",
-              "src/assets/css/style.min.css"
+              "src/assets/css/style.min.css",
+              "src/assets/lib/owlcarousel/assets/owl.carousel.min.css"
             ],
-            "scripts": ["src/assets/js/main.js"]
+            "scripts": [
+              "src/assets/js/main.js"
+            ]
           },
           "configurations": {
             "production": {
