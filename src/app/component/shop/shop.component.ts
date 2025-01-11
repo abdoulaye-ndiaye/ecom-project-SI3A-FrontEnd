@@ -13,7 +13,7 @@ import { CartService } from "../../shared/services/cart.service";
     styleUrl: "./shop.component.css",
 })
 export class ShopComponent implements OnInit {
-    //http://gateway-api:8000/products/download/677b9bef9689b74ebac46a25
+    //http://10.3.178.196:8000/products/download/677b9bef9689b74ebac46a25
     products: any[] = [];
 
     ngOnInit(): void {
@@ -31,7 +31,7 @@ export class ShopComponent implements OnInit {
                     this.products = response.map((product: any) => {
                         return {
                             ...product,
-                            imageUrl: `http://gateway-api:8000/products/download/${product._id}`,
+                            imageUrl: `http://10.3.178.196:8000/products/download/${product._id}`,
                         };
                     });
                     console.log(this.products);

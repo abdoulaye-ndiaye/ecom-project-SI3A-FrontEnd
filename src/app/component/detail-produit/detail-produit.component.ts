@@ -52,7 +52,7 @@ export class DetailProduitComponent implements OnInit, OnDestroy {
                 if (response) {
                     this.product = {
                         ...response,
-                        imageUrl: `http://gateway-api:8000/products/download/${response._id}`, // Construire l'URL de l'image
+                        imageUrl: `http://10.3.178.196:8000/products/download/${response._id}`, // Construire l'URL de l'image
                     };
                 } else {
                     console.error("Invalid response:", response);
