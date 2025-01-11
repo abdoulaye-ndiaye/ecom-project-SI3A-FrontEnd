@@ -3,8 +3,6 @@ name: Build and Push Docker Image
 on:
   push:
     branches: [ "main" ]
-    paths:
-        - 'statert-kit/**'
 
 jobs:
   build-and-push:
@@ -25,7 +23,6 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
-        context: ./statert-kit
         push: true
         platforms: linux/amd64
         tags: ${{ secrets.DOCKER_USERNAME }}/si3a_front:latest
