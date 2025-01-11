@@ -79,6 +79,7 @@ export class CheckoutComponent implements OnInit {
       numTel: this.billingForm.value.mobile,
       adresse: this.billingForm.value.address1,
       password: this.billingForm.value.password,
+      role:'USER',
     };
     this.UsersService.createUser(userDetails).subscribe(
       (response: any) => {
