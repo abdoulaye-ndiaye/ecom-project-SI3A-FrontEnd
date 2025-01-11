@@ -18,121 +18,142 @@
         <div class="col-lg-8">  
             <div class="mb-4">  
                 <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>  
-                <form [formGroup]="billingForm" (ngSubmit)="placeOrder()">  
-                    <div class="row">  
-                        <div class="col-md-6 form-group" *ngFor="let field of ['firstName', 'lastName']">  
-                            <label>{{ field | titlecase }}</label>  
-                            <input   
-                                class="form-control"   
-                                type="text"   
-                                formControlName="{{ field }}"  
-                                placeholder="{{ field | titlecase }}">  
-                            <div *ngIf="billingForm.get(field)?.invalid && (billingForm.get(field)?.touched || billingForm.get(field)?.dirty)" class="text-danger">  
-                                <small *ngIf="billingForm.get(field)?.errors?.['required']">{{ field | titlecase }} is required.</small>  
-                                <small *ngIf="billingForm.get(field)?.errors?.['minlength']">Must be at least 2 characters.</small>  
-                                <small *ngIf="billingForm.get(field)?.errors?.['pattern']">Only letters allowed.</small>  
-                            </div>  
-                        </div>  
-
-                        <div class="col-md-6 form-group" *ngFor="let field of ['email', 'mobile']">  
-                            <label>{{ field | titlecase }}</label>  
-                            <input   
-                                class="form-control"   
-                                type="text"   
-                                formControlName="{{ field }}"  
-                                placeholder="{{ field | titlecase }}">  
-                            <div *ngIf="billingForm.get(field)?.invalid && (billingForm.get(field)?.touched || billingForm.get(field)?.dirty)" class="text-danger">  
-                                <small *ngIf="billingForm.get(field)?.errors?.['required']">{{ field | titlecase }} is required.</small>  
-                                <small *ngIf="billingForm.get(field)?.errors?.['email']">Invalid email format.</small>  
-                                <small *ngIf="billingForm.get(field)?.errors?.['pattern']">Must be a 10 digit number.</small>  
-                            </div>  
-                        </div>  
-
-                        <!-- Address -->  
-                        <div class="col-md-6 form-group" *ngFor="let field of ['address1', 'address2']">  
-                            <label>{{ field | titlecase }}</label>  
-                            <input   
-                                class="form-control"   
-                                type="text"   
-                                formControlName="{{ field }}"  
-                                placeholder="{{ field | titlecase }}">  
-                            <div *ngIf="billingForm.get(field)?.invalid && (billingForm.get(field)?.touched || billingForm.get(field)?.dirty)" class="text-danger">  
-                                <small *ngIf="billingForm.get(field)?.errors?.['required']">{{ field | titlecase }} is required.</small>  
-                            </div>  
-                        </div>  
-
-                        <!-- Country -->  
-                        <div class="col-md-6 form-group">  
-                            <label>Country</label>  
-                            <select class="custom-select" formControlName="country">  
-                                <option value="" disabled selected>Select a country</option>  
-                                <option *ngFor="let country of ['United States', 'United Kingdom', 'Canada', 'Australia','New Zealand', 'South Africa', 'Germany', 'France', 'Italy', 'Spain', 'Portugal', 'Brazil', 'Argentina', 'Mexico', 'Chile', 'Colombia', 'Peru', 'Uruguay', 'Venezuela', 'Other']" [value]="country">  
-                                    {{ country }}  
-                                </option>  
-                            </select>  
-                            <div *ngIf="billingForm.get('country')?.invalid && (billingForm.get('country')?.touched || billingForm.get('country')?.dirty)" class="text-danger">  
-                                <small *ngIf="billingForm.get('country')?.errors?.['required']">Country is required.</small>  
-                            </div>  
-                        </div>  
-
-                        <!-- City & State -->  
-                        <div class="col-md-6 form-group" *ngFor="let field of ['city', 'state']">  
-                            <label>{{ field | titlecase }}</label>  
-                            <input   
-                                class="form-control"   
-                                type="text"   
-                                formControlName="{{ field }}"  
-                                placeholder="{{ field | titlecase }}">  
-                            <div *ngIf="billingForm.get(field)?.invalid && (billingForm.get(field)?.touched || billingForm.get(field)?.dirty)" class="text-danger">  
-                                <small *ngIf="billingForm.get(field)?.errors?.['required']">{{ field | titlecase }} is required.</small>  
-                                <small *ngIf="billingForm.get(field)?.errors?.['minlength']">Must be at least 2 characters.</small>  
-                            </div>  
-                        </div>  
-
-                        <!-- ZIP Code -->  
-                        <div class="col-md-6 form-group">  
-                            <label>ZIP Code</label>  
-                            <input   
-                                class="form-control"   
-                                type="text"   
-                                formControlName="zip"  
-                                placeholder="ZIP Code">  
-                            <div *ngIf="billingForm.get('zip')?.invalid && (billingForm.get('zip')?.touched || billingForm.get('zip')?.dirty)" class="text-danger">  
-                                <small *ngIf="billingForm.get('zip')?.errors?.['required']">ZIP Code is required.</small>  
-                                <small *ngIf="billingForm.get('zip')?.errors?.['pattern']">Invalid ZIP Code format.</small>  
-                            </div>  
-                        </div>  
-                    </div>  
-                </form>  
-            </div>  
-
-            <!-- Shipping Address -->  
-            <div class="form-check mb-3">  
-                <input   
-                    type="checkbox"   
-                    id="shipToDifferent"   
-                    [(ngModel)]="useShippingAddress"   
-                    (change)="toggleShippingAddress()">  
-                <label for="shipToDifferent">Ship to different address</label>  
-            </div>  
-            <div class="collapse mb-4" [class.show]="useShippingAddress">  
-                <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>  
-                <form [formGroup]="shippingForm">  
-                    <div class="row">  
-                        <!-- Repeat fields for shipping address -->  
-                        <div class="col-md-6 form-group" *ngFor="let field of ['firstName', 'lastName', 'email', 'mobile', 'address1', 'address2', 'city', 'state', 'zip']">  
-                            <label>{{ field | titlecase }}</label>  
-                            <input   
-                                class="form-control"   
-                                type="text"   
-                                formControlName="{{ field }}"  
-                                placeholder="{{ field | titlecase }}">  
-                            <div *ngIf="shippingForm.get(field)?.invalid && (shippingForm.get(field)?.touched || shippingForm.get(field)?.dirty)" class="text-danger">  
-                                <small *ngIf="shippingForm.get(field)?.errors?.['required']">{{ field | titlecase }} is required.</small>  
-                            </div>  
-                        </div>  
-                    </div>  
-                </form>  
+                <form [formGroup]="billingForm" (ngSubmit)="placeOrder()">
+                    <div class="mb-4">
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label>First Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="firstName"
+                            placeholder="First Name">
+                          <small class="text-danger" *ngIf="billingForm.get('firstName')?.invalid && billingForm.get('firstName')?.touched">
+                            First name is required and must contain only letters.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Last Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="lastName"
+                            placeholder="Last Name">
+                          <small class="text-danger" *ngIf="billingForm.get('lastName')?.invalid && billingForm.get('lastName')?.touched">
+                            Last name is required and must contain only letters.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Email</label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            formControlName="email"
+                            placeholder="Email">
+                          <small class="text-danger" *ngIf="billingForm.get('email')?.invalid && billingForm.get('email')?.touched">
+                            Please enter a valid email.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Mobile</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="mobile"
+                            placeholder="Mobile">
+                          <small class="text-danger" *ngIf="billingForm.get('mobile')?.invalid && billingForm.get('mobile')?.touched">
+                            Mobile number must be 10 digits.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Address Line 1</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="address1"
+                            placeholder="Address Line 1">
+                          <small class="text-danger" *ngIf="billingForm.get('address1')?.invalid && billingForm.get('address1')?.touched">
+                            Address Line 1 is required.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Address Line 2</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="address2"
+                            placeholder="Address Line 2">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Country</label>
+                          <select class="custom-select" formControlName="country">
+                            <option [value]="''" disabled selected>Select Country</option>
+                            <option *ngFor="let country of ['United States', 'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua', 'france', 'germany', 'italy', 'japan', 'korea', 'mexico', 'netherlands', 'pakistan', 'qatar', 'romania', 'russia', 'saudi arabia', 'singapore', 'south korea', 'spain', 'sweden', 'switzerland', 'turkey', 'uk', 'united kingdom' ]">
+                              {{ country }}
+                            </option>
+                          </select>
+                          <small class="text-danger" *ngIf="billingForm.get('country')?.invalid && billingForm.get('country')?.touched">
+                            Country is required.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>City</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="city"
+                            placeholder="City">
+                          <small class="text-danger" *ngIf="billingForm.get('city')?.invalid && billingForm.get('city')?.touched">
+                            City is required.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>State</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="state"
+                            placeholder="State">
+                          <small class="text-danger" *ngIf="billingForm.get('state')?.invalid && billingForm.get('state')?.touched">
+                            State is required.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>ZIP Code</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="zip"
+                            placeholder="ZIP Code">
+                          <small class="text-danger" *ngIf="billingForm.get('zip')?.invalid && billingForm.get('zip')?.touched">
+                            ZIP code must be 5 digits.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Password</label>
+                          <input
+                            type="password"
+                            class="form-control"
+                            formControlName="password"
+                            placeholder="Password">
+                          <small class="text-danger" *ngIf="billingForm.get('password')?.invalid && billingForm.get('password')?.touched">
+                            Password is required and must be at least 6 characters.
+                          </small>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Confirm Password</label>
+                          <input
+                            type="password"
+                            class="form-control"
+                            formControlName="confirmPassword"
+                            placeholder="Confirm Password">
+                          <small class="text-danger" *ngIf="billingForm.hasError('mismatch') && billingForm.get('confirmPassword')?.touched">
+                            Passwords do not match.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                </form> 
             </div>  
         </div>  
 
@@ -165,7 +186,7 @@
                     </div>  
                     <button   
                         class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3"   
-                        [disabled]="billingForm.invalid || (useShippingAddress && shippingForm.invalid)"  
+                        [disabled]="billingForm.invalid || cartItems.length === 0"  
                         (click)="placeOrder()">  
                         Place Order  
                     </button>  
