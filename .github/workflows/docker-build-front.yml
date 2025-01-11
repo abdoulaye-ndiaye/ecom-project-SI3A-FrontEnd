@@ -1,0 +1,28 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Étape 1 : Vérifier le code source
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Étape 2 : Se connecter au registre Docker
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }} # Défini dans vos secrets GitHub
+        password: ${{ secrets.DOCKER_PASSWORD }} # Défini dans vos secrets GitHub
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        platforms: linux/amd64
+        tags: ${{ secrets.DOCKER_USERNAME }}/si3a_front:latest
