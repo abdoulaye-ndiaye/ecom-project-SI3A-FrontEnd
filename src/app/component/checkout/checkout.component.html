@@ -186,7 +186,7 @@
                     </div>  
                     <button   
                         class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3"   
-                        [disabled]="billingForm.invalid || cartItems.length === 0"  
+                        [disabled]="billingForm.invalid || cartItems.length === 0 || paymentMethod === ''"  
                         (click)="placeOrder()">  
                         Place Order  
                     </button>  
